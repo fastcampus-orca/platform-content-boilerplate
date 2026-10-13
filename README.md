@@ -1,0 +1,87 @@
+# 플랫폼별 콘텐츠 제작
+
+내 채널 기준에 맞춰 회차마다 새 소재를 수집하고, 같은 소재로 블로그 글·인스타그램 카드뉴스·Threads 게시글을 만드는 프로젝트다. 채널 기준은 처음 한 번 만들어 모든 회차에서 재사용하고, 회차마다 소재와 결과물만 새로 만든다.
+
+## 폴더 구조
+
+```text
+platform-content-boilerplate/
+├── README.md        # 프로젝트 목적·입력·저장 규칙
+├── AGENTS.md        # 콘텐츠 업무 기준
+├── CLAUDE.md        # AGENTS.md를 가리키는 링크
+├── prompts/         # 전체 실행 요청문
+├── references/      # 콘텐츠 포맷과 포맷별 샘플
+│   ├── formats/     # 플랫폼별 콘텐츠 포맷
+│   └── samples/     # 포맷별 샘플
+│       ├── blog/
+│       ├── instagram-carousel/
+│       └── threads/
+└── artifacts/       # 에이전트 산출물
+    ├── rules/       # 채널 프로필·말투·전략·공통 전달 기준
+    └── runs/        # 회차별 콘텐츠
+```
+
+처음에는 `prompts/produce.md`만 들어 있고 나머지 폴더는 비어 있다. 아래 순서로 문서를 만들면서 채운다.
+
+## 작업 흐름
+
+1. 채널 기준 만들기(처음 한 번): 인터뷰로 채널 프로필과 말투 규칙을 만들고, 내 상황에 맞는 콘텐츠 전략과 세 플랫폼 공통 전달 기준을 정한 뒤, 블로그·인스타그램 카드뉴스·Threads 콘텐츠 포맷과 포맷별 샘플을 만들어 확인한다.
+2. 회차 실행: 사용자가 준 소재나 콘텐츠 전략의 수집 범위에서 찾은 소재로 소재 브리프를 만들고, 세 플랫폼 결과물을 만든다. 소재 수집부터 한 번에 실행할 때는 `prompts/produce.md`를 사용한다.
+3. 다음 회차: 채널 기준을 그대로 재사용하고 이전 회차와 겹치지 않는 새 소재만 수집한다.
+
+## 입력
+
+| 입력 | 위치 | 비고 |
+| --- | --- | --- |
+| 인터뷰 답변 | 대화 | 채널 프로필·말투·전략을 만들 때 질문에 답함 |
+| 말투 분석용 글 | 대화 | 인터뷰 중 요청받으면 글 3~5개를 붙여 넣음 |
+| 채널 기준 | `artifacts/rules/`, `references/` | 처음 한 번 만든 뒤 회차 실행의 입력으로 사용 |
+| 이번 회차 소재 | 대화 | 선택. 사용자가 소재를 직접 줄 때 |
+| 전체 실행 요청문 | `prompts/produce.md` | 소재 수집부터 세 플랫폼 제작까지 한 번에 실행할 때 사용 |
+
+## 문서 저장 규칙
+
+### 채널 기준
+
+| 문서 | 저장 위치 |
+| --- | --- |
+| 채널 프로필 | `artifacts/rules/about-me.md` |
+| 말투 규칙 | `artifacts/rules/voice.md` |
+| 콘텐츠 전략 | `artifacts/rules/content-strategy.md` |
+| 공통 전달 기준 | `artifacts/rules/delivery-criteria.md` |
+| 블로그 포맷 | `references/formats/blog-formats.md` |
+| 블로그 샘플 | `references/samples/blog/`에 포맷마다 파일 하나 |
+| 카드뉴스 포맷 | `references/formats/instagram-carousel-formats.md` |
+| 카드뉴스 샘플 | `references/samples/instagram-carousel/`에 포맷마다 파일 하나 |
+| Threads 포맷 | `references/formats/threads-formats.md` |
+| Threads 샘플 | `references/samples/threads/`에 포맷마다 파일 하나 |
+
+- 콘텐츠 전략에는 콘텐츠 주제, 소재 선정 기준, 플랫폼별 역할, 발행 주기, 회차마다 웹 검색으로 소재를 찾을 수집 범위(검색어·참고할 주제)를 담는다.
+- 공통 전달 기준은 회차마다 세 플랫폼에 똑같이 넘길 소재 브리프의 항목(회차 목적·대상 독자·핵심 메시지·핵심 사실과 출처 링크·피할 표현)과, 항목별로 채널 기준에서 가져올 내용과 회차마다 채울 내용을 정한다. 이미지 설계와 플랫폼별 표현은 넣지 않는다.
+- 콘텐츠 포맷 문서는 플랫폼마다 서로 다른 전개 방식의 포맷 여러 개를 담는다. 포맷은 해당 플랫폼 스킬의 구조를 바탕으로 정하고, 포맷마다 이름, 어울리는 소재와 목적, 전개 구조, 한국어 훅 방식, 작성 조건, 해당 샘플 파일로 연결되는 상대 경로 링크를 적는다. 분량·장수는 플랫폼 공식 제한 안에서 정한다.
+- 샘플은 포맷 하나마다 파일 하나로 해당 플랫폼 폴더에 저장한다. 파일 이름은 포맷 이름을 영문 kebab-case로 바꿔 짓고, 포맷 문서의 링크와 실제 파일 위치를 맞춘다. 샘플 개수는 포맷 개수와 같다.
+- 샘플은 해당 포맷으로 새로 쓴 작성 예시 하나를 담는다. 다른 사람의 문장과 이미지를 옮기지 않는다.
+- 채널 기준은 사용자가 확인한 뒤 저장한다. 수정이 필요하면 같은 파일을 갱신한다.
+
+### 회차 결과물
+
+| 문서·파일 | 저장 위치 |
+| --- | --- |
+| 소재 후보 기록 | `artifacts/runs/<runId>/material/candidates.md` |
+| 소재 브리프 | `artifacts/runs/<runId>/material/brief.md` |
+| 수집한 원문 기록 | `artifacts/runs/<runId>/material/raw/` |
+| 블로그 원고 | `artifacts/runs/<runId>/blog/blog.md` |
+| 블로그 이미지 | `artifacts/runs/<runId>/blog/images/` |
+| 카드뉴스 구성안(장별 문구·이미지 설계·캡션) | `artifacts/runs/<runId>/instagram/carousel.md` |
+| 카드뉴스 이미지 | `artifacts/runs/<runId>/instagram/carousel/01.png`부터 순서대로 |
+| Threads 원고 | `artifacts/runs/<runId>/threads/threads.md` |
+
+- 블로그 원고에는 만든 이미지를 상대 경로로 넣어 문서에서 글과 이미지가 함께 보이게 한다. 카드뉴스 이미지는 구성안에 넣지 않고 이미지 폴더에 둔다.
+- `<runId>`는 실제 Orca 실행 ID다. 한 회차의 모든 작업은 같은 폴더를 사용하고, 수정·재개는 그 폴더에서 이어간다.
+- 이전 회차 폴더를 덮어쓰거나 지우지 않는다. 하위 폴더는 필요할 때 만든다.
+
+## 스킬 저장
+
+프로젝트 스킬은 `.agents/skills/<스킬 이름>/`에 폴더 전체를 설치하고, `.claude/skills/<스킬 이름>`에는 원본을 가리키는 상대 심볼릭 링크를 둔다. 스킬이 참조하는 `references/` 등 하위 파일도 함께 보존한다.
+
+- 스킬 안내에 있는 기본 저장 위치(프로젝트 루트 등)보다 이 문서의 저장 규칙을 따른다.
